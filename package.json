@@ -28,7 +28,9 @@
     "comparator",
     "typescript",
     "generics",
-    "ts"
+    "ts",
+    "switch",
+    "match"
   ],
   "author": "Dmitri Vinogradov",
   "license": "MIT",

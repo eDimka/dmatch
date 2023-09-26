@@ -1,24 +1,15 @@
 import { ComparatorFunction, isPatternMatch } from './utils';
 
 type Pattern<T> = T | ComparatorFunction<T> | Partial<T>;
-type MatcherFunction<T, R> = (value: T) => R;
-type MatcherHandler<T, R> = MatcherFunction<T, R> | R;
+type MatcherFunction<T, R> = (value: T) => R | R[];
 
-interface Matcher<T, R> {
-  pattern: Pattern<T>;
-  handler: MatcherFunction<T, R>;
-}
+type MatcherHandler<T, R> = MatcherFunction<T, R> | R;
 
 const isComparatorFunction = <T>(
   fn: Pattern<T>,
 ): fn is ComparatorFunction<T> => {
   return typeof fn === 'function';
 };
-
-interface Matcher<T, R> {
-  pattern: Pattern<T>;
-  handler: MatcherFunction<T, R>;
-}
 
 export const match = <T, R>(value?: T) => {
   type Matcher = {
@@ -27,13 +18,14 @@ export const match = <T, R>(value?: T) => {
   };
 
   const matchers: Matcher[] = [];
+
   let defaultValue: MatcherFunction<T, R> | undefined;
+
+  const isFunc = (func: any): func is MatcherFunction<T, R> =>
+    typeof func === 'function';
 
   return {
     with(patterns: Pattern<T> | Pattern<T>[], handler: MatcherHandler<T, R>) {
-      const isFunc = (func: any): func is MatcherFunction<T, R> =>
-        typeof func === 'function';
-
       const resolvedHandler: MatcherFunction<T, R> = isFunc(handler)
         ? handler
         : () => handler;
@@ -47,11 +39,18 @@ export const match = <T, R>(value?: T) => {
       }
       return this;
     },
-    default(handler: MatcherFunction<T, R>) {
-      defaultValue = handler;
+    default(handler: MatcherFunction<T, R> | R | Array<R>) {
+      if (isFunc(handler)) {
+        defaultValue = handler;
+      } else if (Array.isArray(handler)) {
+        defaultValue = () => handler.slice();
+      } else {
+        defaultValue = () => handler;
+      }
       return this;
     },
-    execute(inputValue?: T): R | never {
+
+    execute(inputValue?: T): R | R[] | never {
       const finalValue = inputValue !== undefined ? inputValue : (value as T);
       for (const matcher of matchers) {
         if (isComparatorFunction(matcher.pattern)) {

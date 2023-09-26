@@ -137,7 +137,7 @@ describe('match function', () => {
       const lockedMatcher = match<number, () => string>()
         .with(1, () => () => 'Function for one')
         .finalize();
-      expect(lockedMatcher(1)()).toEqual('Function for one');
+      expect((lockedMatcher(1) as () => string)()).toEqual('Function for one');
       expect(() => lockedMatcher(3)).toThrowError(
         'No match found and no default provided.',
       );
@@ -218,6 +218,34 @@ describe('match function', () => {
 
         expect(result).toEqual('undefined value');
       });
+    });
+  });
+  describe('default method', () => {
+    it('should handle when a function is passed', () => {
+      const result = match<string, string>('hello')
+        .with('hi', () => 'world')
+        .default(() => 'default value')
+        .execute();
+
+      expect(result).toBe('default value');
+    });
+
+    it('should handle when a primitive value is passed', () => {
+      const result = match<string, string>('hello')
+        .with('hi', () => 'world')
+        .default('default value')
+        .execute();
+
+      expect(result).toBe('default value');
+    });
+
+    it('should handle when a non-primitive value is passed', () => {
+      const result = match<string, string[]>('hello')
+        .with('hi', () => ['world'])
+        .default(['default', 'value'])
+        .execute();
+
+      expect(result).toEqual(['default', 'value']);
     });
   });
 });
