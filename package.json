@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf lib && tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest --config jestconfig.json",
     "prepare": "npm run build",
