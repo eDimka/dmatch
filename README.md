@@ -1,6 +1,10 @@
 # dmatch - Elegant Pattern Matching for JS/TS
 
-Introducing `dmatch`, an elegant utility library designed for intuitive pattern matching in JavaScript and TypeScript.
+Introducing `dmatch`, an elegant and tiny utility library designed for intuitive pattern matching in JavaScript and TypeScript.
+
+**Below 2KB for the core functionality without compression.**
+**0 runtime dependencies**
+![image](https://github.com/eDimka/dmatch/assets/5039029/1d989a90-0302-4023-bb27-90bf0a341934)
 
 ## Table of Contents
 
