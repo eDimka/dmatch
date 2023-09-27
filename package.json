@@ -1,6 +1,6 @@
 {
   "name": "dmatch",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A type-safe pattern matching utility for TypeScript, enabling concise, composable, and ordered evaluations for value comparisons.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
