@@ -1,5 +1,7 @@
 export type Comparator<T> = (value: T) => boolean;
 
+export type ComparatorFunction<T> = (value: T) => boolean;
+
 export const gt =
   (threshold: number): Comparator<number> =>
   (value) =>
@@ -45,9 +47,9 @@ export const notIn =
   (value) =>
     !list.includes(value);
 
-export type ComparatorFunction<T> = (value: T) => boolean;
-
-export const isFunction = <T>(val: unknown): val is ComparatorFunction<T> => {
+export const isFunction = <T extends (...args: never[]) => unknown>(
+  val: unknown,
+): val is T => {
   return typeof val === 'function';
 };
 

@@ -160,6 +160,15 @@ describe('match function', () => {
 
         expect(result).toEqual('one or two');
       });
+
+      it('should match array if not first matcher', () => {
+        const result = match<number, string>()
+          .with(1, () => 'two')
+          .with([1, 2], () => 'one or two')
+          .execute(2);
+
+        expect(result).toEqual('one or two');
+      });
     });
 
     describe('object pattern matching', () => {
@@ -182,6 +191,33 @@ describe('match function', () => {
             .with({ name: 'Doe' }, () => 'name is Doe')
             .execute(user);
         }).toThrowError('No match found and no default provided.');
+      });
+
+      it('should not match if the value is not in the array', () => {
+        const result = match<number, string>()
+          .with([1, 2], () => 'one or two')
+          .default(() => 'none of the above')
+          .execute(3);
+
+        expect(result).toEqual('none of the above');
+      });
+
+      it('should match the first array pattern that contains the value', () => {
+        const result = match<number, string>()
+          .with([1, 2], () => 'one or two')
+          .with([2, 3], () => 'two or three')
+          .execute(2);
+
+        expect(result).toEqual('one or two');
+      });
+
+      it('should match the second array pattern if the first one does not contain the value', () => {
+        const result = match<number, string>()
+          .with([1], () => 'one')
+          .with([2, 3], () => 'two or three')
+          .execute(2);
+
+        expect(result).toEqual('two or three');
       });
     });
 
