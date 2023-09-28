@@ -4,7 +4,7 @@ Thank you for considering contributing to Dmatch! Every contribution, whether it
 
 ## Code of Conduct
 
-Our project adheres to the Contributor Covenant Code of Conduct. By participating, you are expected to uphold this code. Please report any unacceptable behavior. [Read the full Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
+Our project adheres to the Contributor Covenant Code of Conduct. By participating, you are expected to uphold this code. Please report any unacceptable behavior. [Read the full Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
 
 ## Getting Started
 
