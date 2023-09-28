@@ -35,6 +35,13 @@
         "switch",
         "match"
     ],
+    "bundlesize": [
+        {
+            "path": "./lib/index.js",
+            "maxSize": "10kB",
+            "compression": "gzip"
+        }
+    ],
     "author": "Dmitri Vinogradov",
     "license": "MIT",
     "devDependencies": {
