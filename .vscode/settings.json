@@ -1,0 +1,19 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+	"prettier.singleQuote": true,
+	"prettier.semi": true,
+	"prettier.tabWidth": 4
+}

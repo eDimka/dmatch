@@ -19,24 +19,17 @@ export const match = <T, R>(value?: T) => {
     const matchers: Matcher[] = [];
     let defaultValue: MatcherFunction<T, R> | undefined;
 
-    const resolveHandler = (
-        handler: R | MatcherFunction<T, R>,
-    ): MatcherFunction<T, R> =>
-        isFunction<MatcherFunction<T, R>>(handler)
-            ? handler
-            : () => handler as R;
+    const resolveHandler = (handler: R | MatcherFunction<T, R>): MatcherFunction<T, R> =>
+        isFunction<MatcherFunction<T, R>>(handler) ? handler : () => handler as R;
 
     const addMatcher = (pattern: Pattern<T>, handler: MatcherHandler<T, R>) => {
         matchers.push({ pattern, handler: resolveHandler(handler) });
     };
 
     return {
-        with(
-            patterns: Pattern<T> | Pattern<T>[],
-            handler: MatcherHandler<T, R>,
-        ) {
-            (Array.isArray(patterns) ? patterns : [patterns]).forEach(
-                (pattern) => addMatcher(pattern, handler),
+        with(patterns: Pattern<T> | Pattern<T>[], handler: MatcherHandler<T, R>) {
+            (Array.isArray(patterns) ? patterns : [patterns]).forEach(pattern =>
+                addMatcher(pattern, handler),
             );
             return this;
         },

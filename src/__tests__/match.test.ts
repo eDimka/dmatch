@@ -32,7 +32,7 @@ describe('match function', () => {
         it('should support function patterns', () => {
             const result = match<number, string>(5)
                 .with(
-                    (val) => val > 3,
+                    val => val > 3,
                     () => 'greater than three',
                 )
                 .execute();
@@ -44,7 +44,7 @@ describe('match function', () => {
             const result = match<number, string>(2)
                 .with(1, () => 'one')
                 .with(
-                    (val) => val > 1,
+                    val => val > 1,
                     () => 'greater than one',
                 )
                 .execute();
@@ -58,7 +58,7 @@ describe('match function', () => {
             const composedMatcher = match<number, string>()
                 .with(1, () => 'one')
                 .with(
-                    (val) => val > 1,
+                    val => val > 1,
                     () => 'greater than one',
                 );
 
@@ -74,30 +74,26 @@ describe('match function', () => {
                 .finalize();
 
             expect(lockedMatcher(1)).toEqual('one');
-            expect(() => lockedMatcher(2)).toThrowError(
-                'No match found and no default provided.',
-            );
+            expect(() => lockedMatcher(2)).toThrowError('No match found and no default provided.');
         });
 
         it('should lock and handle dynamic checks', () => {
             const lockedMatcher = match<number, string>()
                 .with(
-                    (val) => val > 1,
+                    val => val > 1,
                     () => 'greater than one',
                 )
                 .finalize();
 
             expect(lockedMatcher(3)).toEqual('greater than one');
-            expect(() => lockedMatcher(1)).toThrowError(
-                'No match found and no default provided.',
-            );
+            expect(() => lockedMatcher(1)).toThrowError('No match found and no default provided.');
         });
 
         it('should lock and go through multiple matchers', () => {
             const lockedMatcher = match<number, string>()
                 .with(1, () => 'one')
                 .with(
-                    (val) => val > 1,
+                    val => val > 1,
                     () => 'greater than one',
                 )
                 .finalize();
@@ -128,21 +124,15 @@ describe('match function', () => {
                 .finalize();
 
             expect(lockedMatcher(1)).toEqual(Days.Monday);
-            expect(() => lockedMatcher(2)).toThrowError(
-                'No match found and no default provided.',
-            );
+            expect(() => lockedMatcher(2)).toThrowError('No match found and no default provided.');
         });
 
         it('should lock and return functions', () => {
             const lockedMatcher = match<number, () => string>()
                 .with(1, () => () => 'Function for one')
                 .finalize();
-            expect((lockedMatcher(1) as () => string)()).toEqual(
-                'Function for one',
-            );
-            expect(() => lockedMatcher(3)).toThrowError(
-                'No match found and no default provided.',
-            );
+            expect((lockedMatcher(1) as () => string)()).toEqual('Function for one');
+            expect(() => lockedMatcher(3)).toThrowError('No match found and no default provided.');
         });
 
         describe('array patterns', () => {
@@ -241,9 +231,7 @@ describe('match function', () => {
 
         describe('edge cases', () => {
             it('should handle null', () => {
-                const result = match<null, string>(null)
-                    .with(null, 'null value')
-                    .execute();
+                const result = match<null, string>(null).with(null, 'null value').execute();
 
                 expect(result).toEqual('null value');
             });
