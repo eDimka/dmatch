@@ -32,6 +32,3 @@ jobs:
 
             - name: Test
               run: npm test
-
-            - name: Run Changesets
-              run: npx changeset

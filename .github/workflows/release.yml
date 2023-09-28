@@ -1,12 +1,13 @@
-name: CI
+name: Release Process
 
 on:
-    pull_request:
+    workflow_dispatch:
+    push:
         branches:
             - main
 
 jobs:
-    build:
+    release:
         runs-on: ubuntu-latest
 
         steps:
@@ -21,23 +22,14 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Check code formatting with Prettier
-              run: npx prettier --check "**/*.{js,ts,json,md}"
-
-            - name: Lint
-              run: npm run lint
-
-            - name: Test
-              run: npm test
-
             - name: Check for Changesets
               id: changesets
               run: npx changeset status
 
             - name: Promote Version if Changeset
               if: steps.changesets.outputs.has-changesets == 'true'
-              run: npx changeset version
-
-            - name: Push Changeset Tags
-              if: steps.changesets.outputs.has-changesets == 'true'
-              run: git push --tags
+              run: |
+                  npx changeset version
+                  git add .
+                  git commit -m "Version bump from changesets"
+                  git push
