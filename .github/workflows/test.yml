@@ -16,6 +16,14 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
+            - name: Cache Node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-node-
+
             - name: Setup Node.js
               uses: actions/setup-node@v2
               with:
@@ -30,5 +38,17 @@ jobs:
             - name: Lint
               run: npm run lint
 
+            - name: Type check
+              run: npx tsc --noEmit
+
             - name: Test
               run: npm test
+
+            - name: Generate coverage report
+              run: npm run test:coverage
+
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v2
+
+            - name: Check bundle size
+              run: npx bundlesize

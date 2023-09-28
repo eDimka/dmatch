@@ -6,5 +6,13 @@
     "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
     "collectCoverageFrom": ["src/**/*.{ts,tsx}"],
     "collectCoverage": true,
-    "coveragePathIgnorePatterns": ["index.ts"]
+    "coveragePathIgnorePatterns": ["index.ts"],
+    "coverageThreshold": {
+        "global": {
+            "branches": 80,
+            "functions": 80,
+            "lines": 80,
+            "statements": 80
+        }
+    }
 }
