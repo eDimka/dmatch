@@ -1,54 +1,66 @@
 {
-  "name": "dmatch",
-  "version": "0.1.9",
-  "description": "A type-safe pattern matching utility for TypeScript, enabling concise, composable, and ordered evaluations for value comparisons.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "build": "rm -rf lib && tsc",
-    "lint": "eslint . --ext .ts",
-    "test": "jest --config jestconfig.json",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "git add -A src",
-    "postversion": "git push && git push --tags",
-    "check-updates": "npx npm-check-updates",
-    "check-updates:minor": "npx npm-check-updates --target minor",
-    "check-updates:patch": "npx npm-check-updates --target patch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eDimka/dmatch.git"
-  },
-  "files": [
-    "lib/**/*"
-  ],
-  "keywords": [
-    "comparator",
-    "typescript",
-    "generics",
-    "ts",
-    "switch",
-    "match"
-  ],
-  "author": "Dmitri Vinogradov",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^29.5.5",
-    "@types/node": "^18.13.0",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
-    "ansi-regex": ">=6.0.1",
-    "eslint": "^8.33.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "jest": "^29.4.1",
-    "ts-jest": "^29.0.5",
-    "typescript": "^4.9.5"
-  }
+    "name": "dmatch",
+    "version": "0.1.10",
+    "description": "A type-safe pattern matching utility for TypeScript, enabling concise, composable, and ordered evaluations for value comparisons.",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "clean": "rimraf lib",
+        "build": "npm run clean && tsc",
+        "lint": "eslint . --ext .ts",
+        "test": "jest --config jestconfig.json",
+        "check": "npm run lint && npm run prettier -- --check 'src/**/*.{ts,js}'",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm run check && npm test",
+        "prettier": "prettier --write 'src/**/*.{ts,js}'",
+        "changeset:publish": "npx changeset publish",
+        "coverage": "jest --coverage --config jestconfig.json",
+        "type-check": "tsc --noEmit",
+        "check-updates": "npx npm-check-updates",
+        "check-updates:minor": "npx npm-check-updates --target minor",
+        "check-updates:patch": "npx npm-check-updates --target patch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eDimka/dmatch.git"
+    },
+    "files": [
+        "lib"
+    ],
+    "keywords": [
+        "comparator",
+        "typescript",
+        "generics",
+        "ts",
+        "switch",
+        "match"
+    ],
+    "bundlesize": [
+        {
+            "path": "./lib/index.js",
+            "maxSize": "10kB",
+            "compression": "gzip"
+        }
+    ],
+    "author": "Dmitri Vinogradov",
+    "license": "MIT",
+    "devDependencies": {
+        "@changesets/cli": "^2.26.2",
+        "@commitlint/cli": "^17.7.1",
+        "@commitlint/config-conventional": "^17.7.0",
+        "@types/jest": "^29.5.5",
+        "@types/node": "^18.13.0",
+        "@typescript-eslint/eslint-plugin": "^5.51.0",
+        "@typescript-eslint/parser": "^5.51.0",
+        "ansi-regex": ">=6.0.1",
+        "bundlesize": "^0.18.1",
+        "eslint": "^8.33.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "jest": "^29.4.1",
+        "prettier": "3.0.3",
+        "rimraf": "^5.0.5",
+        "ts-jest": "^29.0.5",
+        "typescript": "^4.9.5"
+    }
 }

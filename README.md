@@ -8,19 +8,19 @@ Introducing `dmatch`, an elegant and tiny utility library designed for intuitive
 
 ## Table of Contents
 
-- [dmatch - Elegant Pattern Matching for JS/TS](#dmatch---elegant-pattern-matching-for-jsts)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-    - [npm:](#npm)
-  - [Usage](#usage)
-    - [On-the-Fly Matching](#on-the-fly-matching)
-    - [Reusable Matching](#reusable-matching)
-  - [Advanced Use Cases](#advanced-use-cases)
-    - [Dynamic Pricing](#dynamic-pricing)
-    - [Custom Logic](#custom-logic)
-  - [Behaviors and Edge Cases](#behaviors-and-edge-cases)
-    - [No Match and No Default](#no-match-and-no-default)
-  - [License](#license)
+-   [dmatch - Elegant Pattern Matching for JS/TS](#dmatch---elegant-pattern-matching-for-jsts)
+    -   [Table of Contents](#table-of-contents)
+    -   [Installation](#installation)
+        -   [npm:](#npm)
+    -   [Usage](#usage)
+        -   [On-the-Fly Matching](#on-the-fly-matching)
+        -   [Reusable Matching](#reusable-matching)
+    -   [Advanced Use Cases](#advanced-use-cases)
+        -   [Dynamic Pricing](#dynamic-pricing)
+        -   [Custom Logic](#custom-logic)
+    -   [Behaviors and Edge Cases](#behaviors-and-edge-cases)
+        -   [No Match and No Default](#no-match-and-no-default)
+    -   [License](#license)
 
 ## Installation
 
